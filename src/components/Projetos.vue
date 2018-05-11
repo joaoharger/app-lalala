@@ -121,7 +121,7 @@
                                         </td>
 
                                         <td class="project-actions">
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Entrar</a>
+                                            <router-link to="/quadro-projeto" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Entrar</router-link>
                                             <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar</a>
                                         </td>
                                     </tr>
@@ -137,6 +137,7 @@
 
 <script>
 import lista_projetos from '../listaProjetos'
+
 
 export default {
     components: {},

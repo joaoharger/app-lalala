@@ -36,5 +36,24 @@ export default [
         "tarefas_concluidas": 8,
         "estimativa_custo": 1000000.20,
         "custo_atual": 126700.20
+      },
+      {
+        "_id": "5af4d59ac110d63582089ef9",
+        "nome": "Apartamento 1001 Copenhagen",
+        "padrao_apto": "AAA+",
+        "descricao": "moderno",
+        "valor_venda": 5000000.00,
+        "valor_compra": 0,
+        "perfil_cliente": "Classe alta",
+        "localizacao": "Atlântica 4430",
+        "garagens": 4,
+        "vista": "Paraíso",
+        "posicao_sol": "Leste",
+        "ativo": true,
+        "data_criacao": "2018-04-03",
+        "numero_tarefas": 300,
+        "tarefas_concluidas": 90,
+        "estimativa_custo": 1000000.20,
+        "custo_atual": 126700.20
       }
 ]

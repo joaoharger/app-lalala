@@ -1,5 +1,4 @@
-
-
+<template>
 <div id="page-wrapper" class="gray-bg">
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -228,148 +227,108 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="row">
             <div class="col-lg-12">
-
-                <h4>
-                    Serialised Output
-                </h4>
-                <p>
-                    Serializes the sortable's item id's into an array of string.
-                </p>
-
+                <h4>Serialised Output</h4>
+                <p>Serializes the sortable's item id's into an array of string.</p>
                 <div class="output p-m m white-bg"></div>
-
-
             </div>
         </div>
 
-
     </div>
-    <-- Modal ADD tarefa -->
-    <div class="ibox-tools">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criaTarefa">
-            Criar novo projeto
-        </button>
-        <div class="modal inmodal" id="criaTarefa" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content animated bounceInRight">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <i class="fa fa-cubes modal-icon"></i>
-                        <h4 class="modal-title">Nova tarefa -
-                            <span>NOME DA TAREFA</span>
-                        </h4>
+    <div class="modal inmodal" id="criaTarefa" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <i class="fa fa-cubes modal-icon"></i>
+                    <h4 class="modal-title">Nova tarefa -
+                        <span>NOME DA TAREFA</span>
+                    </h4>
+                </div>
+                <div class="modal-body text-left">
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <input type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
                     </div>
-                    <div class="modal-body text-left">
-                        <div class="form-group">
-                            <label>Observações</label>
-                            <input type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Custo estimado</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Custo efetivo</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Pagamento em dinheiro</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Condição de parcelamento</label>
-                            <input type="text" placeholder="Ex: 30 60 90" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Condição de parcelamento</label>
-                            <input type="text" placeholder="Ex: 500 2000 2000" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Pagamento em permuta</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Tags</label>
-                            <select data-placeholder="Escolha as tags" class="chosen-select form-control" multiple tabindex="4">
-                                <option value="aguardando-instalacao" class="bg-info">Aguardando instalação</option>
-                                <option value="aguardando-entrega">Aguardando etrega</option>
-                                <option value="programado">Programado</option>
-                                <option value="urgente">Urgente</option>
-                                <option value="aguardando-decisao">Aguardando Decisão</option>
-                                <option value="andamento">Em andamento</option>
-                                <option value="pgto-pendente">Pgto pendente</option>
-                                <option value="aguardando-orcamento">Aguardando orçamento</option>
-                                <option value="interrompido">Interrompido</option>
-                                <option value="concluido">Concluído</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fornecedor</label>
-                            <input type="text" placeholder="Nome do fornecedor" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Data da entrega</label>
-                            <input type="date" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label>Custo estimado</label>
+                        <input type="number" class="form-control">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                    <div class="form-group">
+                        <label>Custo efetivo</label>
+                        <input type="number" class="form-control">
                     </div>
+                    <div class="form-group col-lg-4">
+                        <label>Pagamento em dinheiro</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Condição de parcelamento</label>
+                        <input type="text" placeholder="Ex: 30 60 90" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Condição de parcelamento</label>
+                        <input type="text" placeholder="Ex: 500 2000 2000" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Pagamento em permuta</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <select data-placeholder="Escolha as tags" class="chosen-select form-control" multiple tabindex="4">
+                            <option value="aguardando-instalacao" class="bg-info">Aguardando instalação</option>
+                            <option value="aguardando-entrega">Aguardando etrega</option>
+                            <option value="programado">Programado</option>
+                            <option value="urgente">Urgente</option>
+                            <option value="aguardando-decisao">Aguardando Decisão</option>
+                            <option value="andamento">Em andamento</option>
+                            <option value="pgto-pendente">Pgto pendente</option>
+                            <option value="aguardando-orcamento">Aguardando orçamento</option>
+                            <option value="interrompido">Interrompido</option>
+                            <option value="concluido">Concluído</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fornecedor</label>
+                        <input type="text" placeholder="Nome do fornecedor" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Data da entrega</label>
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
-    <--Fim modal -->
 </div>
-   
 
-            <!-- Mainly scripts -->
-            <script src="js/jquery-3.1.1.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+</template>
 
-            <!-- jquery UI -->
-            <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
 
-            <!-- Touch Punch - Touch Event Support for jQuery UI -->
-            <script src="js/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+import lista_Tarefas from '../listaTarefas'
+export default {
+    
+    
+mounted() {
+        $(".chosen-select").chosen({ width: "100%" })
+        this.listarProjetos()
+    }
 
-            <!-- Custom and plugin javascript -->
-            <script src="js/inspinia.js"></script>
-            <script src="js/plugins/pace/pace.min.js"></script>
+}
+</script>
 
-            <!-- Chosen -->
-            <script src="js/plugins/chosen/chosen.jquery.js"></script>
+<style scoped>
 
-            <script>
-                $(document).ready(function () {
-
-                    $('.chosen-select').chosen({ width: "100%" });
-
-                    $("#todo, #inprogress, #completed").sortable({
-                        connectWith: ".connectList",
-                        update: function (event, ui) {
-
-                            var todo = $("#todo").sortable("toArray");
-                            var inprogress = $("#inprogress").sortable("toArray");
-                            var completed = $("#completed").sortable("toArray");
-                            $('.output').html("ToDo: " + window.JSON.stringify(todo) + "<br/>" + "In Progress: " + window.JSON.stringify(inprogress) + "<br/>" + "Completed: " + window.JSON.stringify(completed));
-                        }
-                    }).disableSelection();
-
-                });
-            </script>
-
-</body>
-
-</html>
+</style>
