@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bithome - Versão beta 0.1</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Administrador</strong>
+                             </span> <span class="text-muted text-xs block">... <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="#">Sair</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        Bh+
+                    </div>
+                </li>
+                <li >
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Visão geral</span></a>
+                </li>
+                <li class="active">
+                    <a href="projetos.html"><i class="fa fa-th-large"></i> <span class="nav-label">Projetos</span> </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Quadro de tarefas</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Projetos</a>
+                        </li>
+                        <li class="active">
+                            <strong>Projeto X</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+        <div class="wrapper wrapper-content  animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h3>Pendente</h3>
+                            <p class="small"><i class="fa fa-hand-o-up"></i> Arraste a tarefa entre as listas ou posições</p>
+
+                            <div class="input-group">
+                                <input type="text" placeholder="Título da nova tarefa. " class="input input-sm form-control">
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-white" data-toggle="modal" data-target="#criaTarefa"><i class="fa fa-plus"></i> Adicionar nova terefa</button>
+                                </span>
+                            </div>
+
+                            <ul class="sortable-list connectList agile-list" id="todo">
+                                <li class="warning-element" id="task1">
+                                    <span>Pintar Sala</span><span> - Descrição</span>
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag2</a>
+                                        <i class="fa fa-clock-o"></i><span>12.10.2015</span>
+                                        <span>| Custo efetivo: R$xxx,xx </span>
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task2">
+                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                                <li class="info-element" id="task3">
+                                    Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                    </div>
+                                </li>
+                                <li class="danger-element" id="task4">
+                                    All the Lorem Ipsum generators
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                        <i class="fa fa-clock-o"></i> 06.10.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task5">
+                                    Which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 09.12.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task6">
+                                    Packages and web page editors now use Lorem Ipsum as
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                        <i class="fa fa-clock-o"></i> 08.04.2015
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task7">
+                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                                <li class="info-element" id="task8">
+                                    Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h3>Executando</h3>
+
+                            <ul class="sortable-list connectList agile-list" id="inprogress">
+                                <li class="success-element" id="task9">
+                                    Quisque venenatis ante in porta suscipit.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 12.10.2015
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task10">
+                                    Phasellus sit amet tortor sed enim mollis accumsan in consequat orci.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task11">
+                                    Nunc sed arcu at ligula faucibus tempus ac id felis. Vestibulum et nulla quis turpis sagittis fringilla.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task12">
+                                    Ut porttitor augue non sapien mollis accumsan.
+                                    Nulla non elit eget lacus elementum viverra.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 09.12.2015
+                                    </div>
+                                </li>
+                                <li class="info-element" id="task13">
+                                    Packages and web page editors now use Lorem Ipsum as
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                        <i class="fa fa-clock-o"></i> 08.04.2015
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task14">
+                                    Quisque lacinia tellus et odio ornare maximus.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                                <li class="danger-element" id="task15">
+                                    Enim mollis accumsan in consequat orci.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 11.04.2015
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h3>Finalizada</h3>
+
+                            <ul class="sortable-list connectList agile-list" id="completed">
+                                <li class="info-element" id="task16">
+                                    Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task17">
+                                    Ut porttitor augue non sapien mollis accumsan.
+                                    Nulla non elit eget lacus elementum viverra.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 09.12.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task18">
+                                    Which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 09.12.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task19">
+                                    Packages and web page editors now use Lorem Ipsum as
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                        <i class="fa fa-clock-o"></i> 08.04.2015
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task20">
+                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                                <li class="info-element" id="task21">
+                                    Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                    </div>
+                                </li>
+                                <li class="warning-element" id="task22">
+                                    Simply dummy text of the printing and typesetting industry.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                        <i class="fa fa-clock-o"></i> 12.10.2015
+                                    </div>
+                                </li>
+                                <li class="success-element" id="task23">
+                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                        <i class="fa fa-clock-o"></i> 05.04.2015
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h4>
+                        Serialised Output
+                    </h4>
+                    <p>
+                        Serializes the sortable's item id's into an array of string.
+                    </p>
+
+                    <div class="output p-m m white-bg"></div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2017
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+<-- Modal ADD tarefa -->
+<div class="ibox-tools">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criaTarefa">
+        Criar novo projeto
+    </button>
+    <div class="modal inmodal" id="criaTarefa" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-cubes modal-icon"></i>
+                    <h4 class="modal-title">Nova tarefa - <span>NOME DA TAREFA</span></h4>
+                </div>
+                <div class="modal-body text-left">
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <input type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Custo estimado</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Custo efetivo</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Pagamento em dinheiro</label>
+                        <input type="number"  class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Condição de parcelamento</label>
+                        <input type="text" placeholder="Ex: 30 60 90" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                            <label>Condição de parcelamento</label>
+                            <input type="text" placeholder="Ex: 500 2000 2000" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Pagamento em permuta</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <select data-placeholder="Escolha as tags" class="chosen-select form-control"  multiple  tabindex="4">
+                            <option value="aguardando-instalacao" class="bg-info">Aguardando instalação</option>
+                            <option value="aguardando-entrega">Aguardando etrega</option>
+                            <option value="programado">Programado</option>
+                            <option value="urgente">Urgente</option>
+                            <option value="aguardando-decisao">Aguardando Decisão</option>
+                            <option value="andamento">Em andamento</option>
+                            <option value="pgto-pendente">Pgto pendente</option>
+                            <option value="aguardando-orcamento">Aguardando orçamento</option>
+                            <option value="interrompido">Interrompido</option>
+                            <option value="concluido">Concluído</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fornecedor</label>
+                        <input type="text" placeholder="Nome do fornecedor" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Data da entrega</label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<--Fim modal -->
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- jquery UI -->
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Touch Punch - Touch Event Support for jQuery UI -->
+    <script src="js/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Chosen -->
+    <script src="js/plugins/chosen/chosen.jquery.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.chosen-select').chosen({width: "100%"});
+
+            $("#todo, #inprogress, #completed").sortable({
+                connectWith: ".connectList",
+                update: function( event, ui ) {
+
+                    var todo = $( "#todo" ).sortable( "toArray" );
+                    var inprogress = $( "#inprogress" ).sortable( "toArray" );
+                    var completed = $( "#completed" ).sortable( "toArray" );
+                    $('.output').html("ToDo: " + window.JSON.stringify(todo) + "<br/>" + "In Progress: " + window.JSON.stringify(inprogress) + "<br/>" + "Completed: " + window.JSON.stringify(completed));
+                }
+            }).disableSelection();
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+export default [
+    {
+        "_id": "5af4d59ac110d63582089ef5",
+        "nome": "Apartamento 1001 Apogee",
+        "padrao_apto": "AAA",
+        "descricao": "Nao sei",
+        "valor_venda": 120000.40,
+        "valor_compra": 80000.35,
+        "perfil_cliente": "Classe média média",
+        "localizacao": "Bairro das Nações",
+        "garagens": 2,
+        "vista": "Costas do Angeloni",
+        "posicao_sol": "Norte",
+        "ativo": true,
+        "data_criacao": "2018-05-02",
+        "numero_tarefas": 6,
+        "tarefas_concluidas": 2,
+        "estimativa_custo": 40000.20,
+        "custo_atual": 26700.20
+      },
+      {
+        "_id": "5af4d59ac110d63582089ef6",
+        "nome": "Apartamento 2002 Splendido",
+        "padrao_apto": "AAA+",
+        "descricao": "Mothefoca",
+        "valor_venda": 6520000.01,
+        "valor_compra": 2000000.60,
+        "perfil_cliente": "Classe alta",
+        "localizacao": "Atlântica 500",
+        "garagens": 4,
+        "vista": "Paraíso",
+        "posicao_sol": "Leste",
+        "ativo": false,
+        "data_criacao": "2018-04-03",
+        "numero_tarefas": 8,
+        "tarefas_concluidas": 8,
+        "estimativa_custo": 1000000.20,
+        "custo_atual": 126700.20
+      }
+]
