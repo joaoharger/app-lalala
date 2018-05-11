@@ -80,7 +80,7 @@
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
                             <div class="col-md-1">
-                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Atualizar</button>
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> <router-link to="/projetos"> Atualizar</router-link></button>
                             </div>
                             <div class="col-md-11">
                                 <div class="input-group">
