@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '@/App'
-import Projetos from '@/components/Projetos'
 import Dashboard from '@/components/Dashboard'
-import QuadroProjeto from '@/components/Quadro-projeto'
+import Projetos from '@/components/Projetos'
+import QuadroTarefas from '@/components/QuadroTarefas'
 
 Vue.use(Router)
 
@@ -20,9 +20,9 @@ export default new Router({
       component: Projetos
     },
     {
-      path: '/quadro-projeto',
-      name: 'Quadro-projeto',
-      component: QuadroProjeto
+      path: '/projetos/:id/quadro-tarefas',
+      name: 'QuadroTarefas',
+      component: QuadroTarefas
     }
   ]
 })

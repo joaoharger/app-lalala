@@ -5,10 +5,10 @@
                 <h2>Quadro de tarefas</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <router-link to="/">Home</router-link>
                     </li>
                     <li>
-                        <a>Projetos</a>
+                        <router-link to="/projetos">Projetos</router-link>
                     </li>
                     <li class="active">
                         <strong>Projeto X</strong>
@@ -24,15 +24,16 @@
                             <h3>Pendente</h3>
                             <p class="small">
                                 <i class="fa fa-hand-o-up"></i> Arraste a tarefa entre as listas ou posições</p>
-
                             <div class="input-group">
-                                <input v-model="nomeNovaTarefa" type="text" placeholder="Título da nova tarefa. " class="input input-sm form-control">
+                                <input v-model="nomeNovaTarefa" type="text" placeholder="Título da nova tarefa. " 
+                                    class="input input-sm form-control" />
                                 <span class="input-group-btn">
-                                    <button id="addTarefa" type="button" class="btn btn-sm btn-white" data-toggle="modal" data-target="#criaTarefa">
-                                        <i class="fa fa-plus"></i> Adicionar nova terefa</button>
+                                    <button id="addTarefa" type="button" class="btn btn-sm btn-white" 
+                                        data-toggle="modal" data-target="#criaTarefa">
+                                        <i class="fa fa-plus"></i> Adicionar nova terefa
+                                    </button>
                                 </span>
                             </div>
-
                             <ul v-for="tarefa in tarefasFiltradas" :key="tarefa._id" class="sortable-list connectList agile-list" id="todo">
                                 <li class="warning-element" id="task1" @click="abreTarefa(tarefa)">
                                     <span>{{tarefa.nome}}</span>
@@ -55,7 +56,6 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Executando</h3>
-
                             <ul class="sortable-list connectList agile-list" id="inprogress">
                                 <li class="success-element" id="task9">
                                     Quisque venenatis ante in porta suscipit.
@@ -72,7 +72,6 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Finalizada</h3>
-
                             <ul class="sortable-list connectList agile-list" id="completed">
                                 <li class="info-element" id="task16">
                                     Sometimes by accident, sometimes on purpose (injected humour and the like).
@@ -85,14 +84,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4>Serialised Output</h4>
-                    <p>Serializes the sortable's item id's into an array of string.</p>
-                    <div class="output p-m m white-bg"></div>
                 </div>
             </div>
         </div>
@@ -245,14 +236,13 @@
 </template>
 
 <script>
-import lista_tarefas from "../listaTarefas";
+import api from '../api'
 
 export default {
   mounted() {
     $(".chosen-select").chosen({ width: "100%" });
-
-    this.listarTarefas();
-
+    const id_projeto = $route.params.id
+    this.listarTarefas(id_projeto)
     $("#todo, #inprogress, #completed")
       .sortable({
         connectWith: ".connectList",
@@ -275,27 +265,35 @@ export default {
       .disableSelection();
   },
   data: () => ({
+    projeto: null,
     tarefas: [],
     termoPesquisa: "",
-    nomeNovaTarefa: "",
-    loading: true
+    nomeNovaTarefa: ""
   }),
   computed: {
-    tarefasFiltradas() {
-      return this.tarefas.filter(p => p.nome.includes(this.termoPesquisa));
+    tarefasAbertas() {
+      return this.tarefas.filter(p => p.status === 'ABERTA')
+    },
+    tarefasEmAndamento() {
+      return this.tarefas.filter(p => p.status === 'EM_ANDAMENTO')
+    },
+    tarefasFinalizadas() {
+      return this.tarefas.filter(p => p.status === 'FINALIZADA')
     }
   },
   methods: {
-    listarTarefas() {
-      fetch("http://www.pudim.com.br/", { mode: "no-cors" }).then(response => {
-        this.tarefas = lista_tarefas.map(p => ({
-          ...p
-        }));
-        loading: false;
-      });
+    carregarProjeto(id_projeto) {
+        api.carregarProjeto(id_projeto).then(projeto => {
+            this.projeto = projeto
+        })
+    },
+    listarTarefas(id_projeto) {
+        api.listarTarefas(id_projeto).then(tarefas => {
+            this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
+        })
     },
     abreTarefa(tarefa) {
-      console.log(tarefa.nome);
+      console.log(tarefa.nome)
       $('#abreTarefa').dialog()
     }
   }
