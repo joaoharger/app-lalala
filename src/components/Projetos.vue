@@ -54,13 +54,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Posição do sol</label>
-
-                                                    <select data-placeholder="Escolha" class="chosen-select"  multiple style="width:350px;" tabindex="4">
-                                                        <option value="Leste">Leste</option>
-                                                        <option value="Oeste">Oeste</option>
-                                                        <option value="Norte">Norte</option>
-                                                        <option value="Sul">Sul</option>
-                                                    </select>
+                                                <select data-placeholder="Escolha" class="chosen-select"  multiple style="width:350px;" tabindex="4">
+                                                    <option value="Leste">Leste</option>
+                                                    <option value="Oeste">Oeste</option>
+                                                    <option value="Norte">Norte</option>
+                                                    <option value="Sul">Sul</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Observações</label>
@@ -136,8 +135,7 @@
 </template>
 
 <script>
-import lista_projetos from '../listaProjetos'
-
+import api from '../api'
 
 export default {
     components: {},
@@ -159,12 +157,9 @@ export default {
     },
     methods: {
         listarProjetos() {
-            fetch('http://www.pudim.com.br/', { mode: 'no-cors' }).then(response => {
-                this.projetos = lista_projetos.map(p => ({
-                    ...p, 
-                    porcentagem_conclusao: (p.tarefas_concluidas / p.numero_tarefas * 100).toFixed(2)
-                }))
-                loading: false
+            api.listarProjetos().then(projetos => {
+                this.projetos = projetos || [] //retorna array vazio caso problema ocorra
+                this.loading = false
             })
         }
     }
