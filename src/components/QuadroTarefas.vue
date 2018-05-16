@@ -166,7 +166,10 @@
 
 <script>
 import api from '../api'
+<<<<<<< HEAD:src/components/QuadroTarefas.vue
 import Tarefa from './modais/Tarefa.vue'
+=======
+>>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40:src/components/QuadroTarefas.vue
 
 export default {
     components:{
@@ -198,12 +201,13 @@ export default {
       .disableSelection();
   },
   data: () => ({
+    projeto: null,
     tarefas: [],
     termoPesquisa: "",
-    nomeNovaTarefa: "",
-    loading: true
+    nomeNovaTarefa: ""
   }),
   computed: {
+<<<<<<< HEAD:src/components/QuadroTarefas.vue
     tarefasFiltradas() {
       return this.tarefas.filter(p => p.nome.includes(this.termoPesquisa))
     }
@@ -213,6 +217,27 @@ export default {
         api.listarTarefas(id_projeto).then(tarefas => {
             this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
             this.loading = false
+=======
+    tarefasAbertas() {
+      return this.tarefas.filter(p => p.status === 'ABERTA')
+    },
+    tarefasEmAndamento() {
+      return this.tarefas.filter(p => p.status === 'EM_ANDAMENTO')
+    },
+    tarefasFinalizadas() {
+      return this.tarefas.filter(p => p.status === 'FINALIZADA')
+    }
+  },
+  methods: {
+    carregarProjeto(id_projeto) {
+        api.carregarProjeto(id_projeto).then(projeto => {
+            this.projeto = projeto
+        })
+    },
+    listarTarefas(id_projeto) {
+        api.listarTarefas(id_projeto).then(tarefas => {
+            this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
+>>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40:src/components/QuadroTarefas.vue
         })
     },
     abreTarefa(tarefa) {
