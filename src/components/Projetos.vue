@@ -22,55 +22,6 @@
                                             <p><strong>Preencha os dados do imóvel.</strong> </p>
                                         </div>
                                         <div class="modal-body text-left">
-<<<<<<< HEAD
-                                            <div class="form-group">
-                                                <label>Nome do projeto</label>
-                                                <input type="text" placeholder="Nome do projeto" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Padrão do apartamento</label>
-                                                <input type="text" placeholder="Descreva" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Padrão do prédio</label>
-                                                <input type="text" placeholder="Descreva" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Perfil do cliente</label>
-                                                <input type="text" placeholder="Descreva" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Valor da comprea</label>
-                                                <input type="number" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Número de garagens</label>
-                                                <input type="number" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Vistas</label>
-                                                <select data-placeholder="Escolha" class="chosen-select"  multiple style="width:350px;" tabindex="4">
-                                                    <option value="Leste">Leste</option>
-                                                    <option value="Oeste">Oeste</option>
-                                                    <option value="Norte">Norte</option>
-                                                    <option value="Sul">Sul</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Posição do sol</label>
-                                                <select data-placeholder="Escolha" class="chosen-select"  multiple style="width:350px;" tabindex="4">
-                                                    <option value="Leste">Leste</option>
-                                                    <option value="Oeste">Oeste</option>
-                                                    <option value="Norte">Norte</option>
-                                                    <option value="Sul">Sul</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Observações</label>
-                                                <input type="text" placeholder="Descreva" class="form-control">
-                                            </div>
-
-=======
                                             <form id="formProjeto" @submit="salvarProjeto">
                                                 <div class="form-group">
                                                     <label>Nome do projeto</label>
@@ -109,7 +60,6 @@
                                                     <input v-model="projeto.observacao" placeholder="Descreva" class="form-control">
                                                 </div>
                                             </form>
->>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
@@ -199,6 +149,7 @@ export default {
         $(".chosen-select").chosen({ width: "100%" })
         this.listarProjetos()
         this.projeto = this.projetoVazio()
+        
     },
     data: () => ({
         projetos: [],
@@ -221,7 +172,7 @@ export default {
             })
         },
         abrirCadastro() {
-            this.projeto = this.projetoVazio()
+            //this.projeto = this.projetoVazio()
             $("#criaProjeto").modal('show')
         },
         abrirEdicao(projeto) {
@@ -232,9 +183,11 @@ export default {
             event.preventDefault()
             if (this.projeto.id === null) {
                 api.criarProjeto(this.projeto).then(projeto => {
-                    this.projetos.push(this.projeto)
+                    this.projetos.push(this.projeto) //é push mesmo não post????
                     //exibir mensagem
                     $("#criaProjeto").modal('hide')
+                    this.projeto = this.projetoVazio()
+                    
                 })
             } else {
                 const projetoFormatado = {}
@@ -248,6 +201,8 @@ export default {
                     this.projetos[index] = projeto
                     //exibir mensagem
                     $("#criaProjeto").modal('hide')
+                    this.projeto = this.projetoVazio()
+                    
                 })
             }
         },

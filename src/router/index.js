@@ -20,11 +20,7 @@ export default new Router({
       component: Projetos
     },
     {
-<<<<<<< HEAD
-      path: '/quadro-tarefas',
-=======
       path: '/projetos/:id/quadro-tarefas',
->>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40
       name: 'QuadroTarefas',
       component: QuadroTarefas
     }

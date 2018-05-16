@@ -1,0 +1,296 @@
+{
+  "tarefas": [
+    {
+      "id": "1",
+      "id_projeto": 1,
+      "nome": "Pintar sala",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1500,
+      "custo_efetivo": 1450,
+      "pagamento_dinheiro": 945,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "450",
+        "500"
+      ],
+      "pagamento_permuta": 500,
+      "tags": [
+        "Urgente"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.29",
+      "tipo_servico_compra": false,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "2",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": false,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "3",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": false,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "4",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": false,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "5",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.03.30",
+      "tipo_servico_compra": false,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "6",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Lalalal",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.02.12",
+      "tipo_servico_compra": true,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "7",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.04.01",
+      "tipo_servico_compra": true,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "8",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": true,
+      "situacao": "ABERTA"
+    },
+    {
+      "id": "9",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "Casa dos pintores",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": true,
+      "situacao": "EM_ANDAMENTO"
+    },
+    {
+      "id": "10",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 1000,
+      "custo_efetivo": 1000,
+      "pagamento_dinheiro": 800,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "400",
+        "400"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Atrasado"
+      ],
+      "fornecedor": "",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": true,
+      "situacao": "EM_ANDAMENTO"
+    },
+    {
+      "id": "11",
+      "id_projeto": 1,
+      "nome": "Retirando Cozinha",
+      "descricao": "Cor Azul xyz",
+      "custo_estimado": 900,
+      "custo_efetivo": 900,
+      "pagamento_dinheiro": 900,
+      "condicao_pgto": [
+        "1",
+        "+1"
+      ],
+      "condicao_parcelamento": [
+        "4050",
+        "450"
+      ],
+      "pagamento_permuta": 200,
+      "tags": [
+        "Urgente",
+        "Aguardando orçamento",
+        "Atrasado"
+      ],
+      "fornecedor": "",
+      "programacao": "2018.05.10",
+      "tipo_servico_compra": false,
+      "situacao": "FINALIZADA"
+    }
+  ]
+}

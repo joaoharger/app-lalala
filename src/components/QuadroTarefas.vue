@@ -11,7 +11,7 @@
                         <router-link to="/projetos">Projetos</router-link>
                     </li>
                     <li class="active">
-                        <strong>Projeto X</strong>
+                        <strong>{{projeto[0].nome}}</strong>
                     </li>
                 </ol>
             </div>
@@ -28,14 +28,13 @@
                                 <input v-model="nomeNovaTarefa" type="text" placeholder="Título da nova tarefa. " 
                                     class="input input-sm form-control" />
                                 <span class="input-group-btn">
-                                    <button id="addTarefa" type="button" class="btn btn-sm btn-white" 
-                                        data-toggle="modal" data-target="#criaTarefa">
-                                        <i class="fa fa-plus"></i> Adicionar nova terefa
+                                    <button id="addTarefa" type="button" class="btn btn-sm btn-white" >
+                                        <i class="fa fa-plus" @click="abrirTarefa"></i> Adicionar nova terefa
                                     </button>
                                 </span>
                             </div>
-                            <ul v-for="tarefa in tarefasFiltradas" :key="tarefa._id" class="sortable-list connectList agile-list" id="todo">
-                                <li class="warning-element" id="task1" @click="abreTarefa(tarefa)">
+                            <ul v-for="tarefa in tarefasAbertas" :key="tarefa._id" class="sortable-list connectList agile-list" id="todo">
+                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
                                     <span>{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
@@ -43,8 +42,8 @@
                                         <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
                                         <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
                                         <i class="fa fa-clock-o"></i>
-                                        <span v-if="tarefa.data_entrega != null ">{{tarefa.data_entrega}}</span>
-                                        <span v-else>Data não definida</span>
+                                        <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
+                                        <span v-else class="warning">Data não definida</span>
                                         <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
                                     </div>
                                 </li>
@@ -56,12 +55,18 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Executando</h3>
-                            <ul class="sortable-list connectList agile-list" id="inprogress">
-                                <li class="success-element" id="task9">
-                                    Quisque venenatis ante in porta suscipit.
+                            <ul v-for="tarefa in tarefasEmAndamento" :key="tarefa._id" class="sortable-list connectList agile-list" id="inprogress">
+                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
+                                    <span>{{tarefa.nome}}</span>
+                                    <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
-                                        <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
-                                        <i class="fa fa-clock-o"></i> 12.10.2015
+                                        <a v-if="tarefa.tags[0] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[0]}}</a>
+                                        <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
+                                        <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
+                                        <i class="fa fa-clock-o"></i>
+                                        <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
+                                        <span v-else>Data não definida</span>
+                                        <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
                                     </div>
                                 </li>
                             </ul>
@@ -72,22 +77,27 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Finalizada</h3>
-                            <ul class="sortable-list connectList agile-list" id="completed">
-                                <li class="info-element" id="task16">
-                                    Sometimes by accident, sometimes on purpose (injected humour and the like).
+                            <ul v-for="tarefa in tarefasFinalizadas" :key="tarefa._id" class="sortable-list connectList agile-list" id="completed">
+                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
+                                    <span>{{tarefa.nome}}</span>
+                                    <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
-                                        <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
-                                        <i class="fa fa-clock-o"></i> 16.11.2015
+                                        <a v-if="tarefa.tags[0] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[0]}}</a>
+                                        <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
+                                        <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
+                                        <i class="fa fa-clock-o"></i>
+                                        <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
+                                        <span v-else>Data não definida</span>
+                                        <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
                                     </div>
                                 </li>
-                            
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal inmodal" id="criaTarefa" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal inmodal" id="modalTarefa" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content animated bounceInRight">
                     <div class="modal-header">
@@ -101,84 +111,88 @@
                         </h4>
                     </div>
                     <div class="modal-body text-left">
-                        <div class="form-group">
-                            <label>Observações</label>
-                            <input type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Custo estimado</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Custo efetivo</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Pagamento em dinheiro</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Condição de parcelamento</label>
-                            <input type="text" placeholder="Ex: 30 60 90" class="form-control">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label>Condição de parcelamento</label>
-                            <input type="text" placeholder="Ex: 500 2000 2000" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Pagamento em permuta</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Tags</label>
-                            <select data-placeholder="Escolha as tags" class="chosen-select form-control" multiple tabindex="4">
-                                <option value="aguardando-instalacao" class="bg-info">Aguardando instalação</option>
-                                <option value="aguardando-entrega">Aguardando etrega</option>
-                                <option value="programado">Programado</option>
-                                <option value="urgente">Urgente</option>
-                                <option value="aguardando-decisao">Aguardando Decisão</option>
-                                <option value="andamento">Em andamento</option>
-                                <option value="pgto-pendente">Pgto pendente</option>
-                                <option value="aguardando-orcamento">Aguardando orçamento</option>
-                                <option value="interrompido">Interrompido</option>
-                                <option value="concluido">Concluído</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fornecedor</label>
-                            <input type="text" placeholder="Nome do fornecedor" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Data da entrega</label>
-                            <input type="date" class="form-control">
-                        </div>
+                        <form id="formTarefa" @submit="salvarTarefa()">
+                            <div class="form-group">
+                                <label>Nome da tarefa</label>
+                                <input v-model="tarefa.nome" type="text" placeholder="Nome da tarefa" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Observações</label>
+                                <input v-model="tarefa.descricao" type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Custo estimado</label>
+                                <input v-model="tarefa.custo_estimado" type="number" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Custo efetivo</label>
+                                <input v-model="tarefa.custo_efetivo" type="number" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Pagamento em dinheiro</label>
+                                <input v-model="tarefa.pagamento_dinheiro" type="number" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Condição de parcelamento</label>
+                                <input v-model="tarefa.condicao_parcelamento" type="text" placeholder="Ex: 30 60 90" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Condição de pagamento</label>
+                                <input v-model="tarefa.condicao_pgto" type="text" placeholder="Ex: 500 2000 2000" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Pagamento em permuta</label>
+                                <input v-model="tarefa.permuta" type="number" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Tags</label>
+                                <select v-model="tarefa.tags" data-placeholder="Escolha as tags" class="chosen-select form-control" multiple tabindex="4">
+                                    <option value="aguardando-instalacao">Aguardando instalação</option>
+                                    <option value="aguardando-entrega">Aguardando etrega</option>
+                                    <option value="programado">Programado</option>
+                                    <option value="urgente">Urgente</option>
+                                    <option value="aguardando-decisao">Aguardando Decisão</option>
+                                    <option value="andamento">Em andamento</option>
+                                    <option value="pgto-pendente">Pgto pendente</option>
+                                    <option value="aguardando-orcamento">Aguardando orçamento</option>
+                                    <option value="interrompido">Interrompido</option>
+                                    <option value="concluido">Concluído</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Fornecedor</label>
+                                <input v-model="tarefa.fornecedor" type="text" placeholder="Nome do fornecedor" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Data da entrega</label>
+                                <input v-model="tarefa.programacao" type="date" class="form-control">
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                        <button form="formTarefa" type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
             </div>
         </div>
-<Tarefa />
+    
     </div>
 </template>
 
 <script>
 import api from '../api'
-<<<<<<< HEAD:src/components/QuadroTarefas.vue
-import Tarefa from './modais/Tarefa.vue'
-=======
->>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40:src/components/QuadroTarefas.vue
 
 export default {
-    components:{
-        Terefa
-    },
- mounted() {
+  mounted() {
     $(".chosen-select").chosen({ width: "100%" });
-    const id_projeto = $route.params.id
-    this.listarTarefas(id_projeto)
+
+    const id_projeto = this.$route.params.id
+
+    this.carregarProjeto(id_projeto)
+    this.listarTarefas(id_projeto)    
+
+
     $("#todo, #inprogress, #completed")
       .sortable({
         connectWith: ".connectList",
@@ -204,28 +218,18 @@ export default {
     projeto: null,
     tarefas: [],
     termoPesquisa: "",
-    nomeNovaTarefa: ""
+    nomeNovaTarefa: "",
+    tarefa: {}
   }),
   computed: {
-<<<<<<< HEAD:src/components/QuadroTarefas.vue
-    tarefasFiltradas() {
-      return this.tarefas.filter(p => p.nome.includes(this.termoPesquisa))
-    }
-  },
-  methods: {
-    listarTarefas(id_projeto) {
-        api.listarTarefas(id_projeto).then(tarefas => {
-            this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
-            this.loading = false
-=======
     tarefasAbertas() {
-      return this.tarefas.filter(p => p.status === 'ABERTA')
+      return this.tarefas.filter(p => p.situacao === "ABERTA")
     },
     tarefasEmAndamento() {
-      return this.tarefas.filter(p => p.status === 'EM_ANDAMENTO')
+      return this.tarefas.filter(p => p.situacao === 'EM_ANDAMENTO')
     },
     tarefasFinalizadas() {
-      return this.tarefas.filter(p => p.status === 'FINALIZADA')
+      return this.tarefas.filter(p => p.situacao === 'FINALIZADA')
     }
   },
   methods: {
@@ -237,12 +241,55 @@ export default {
     listarTarefas(id_projeto) {
         api.listarTarefas(id_projeto).then(tarefas => {
             this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
->>>>>>> 78ff7ce432453fe24508e43a582d896c67362d40:src/components/QuadroTarefas.vue
         })
     },
-    abreTarefa(tarefa) {
-      console.log(tarefa.nome)
-      $('#abreTarefa').dialog()
+    salvarTarefa(event) {
+        event.preventDefault()
+        if (this.tarefa.id === null) {
+            api.criarTarefa(this.tarefa).then(tarefa => {
+                this.tarefas.post(this.tarefa)
+                //exibir mensagem
+                $("#modalTarefa").modal('hide')
+                this.tarefa = this.tarefaVazia()
+                
+            })
+        } else {
+            api.atualizarTarefa(this.tarefa).then(tarefa => {
+                const index = this.tarefa.findIndex(p => p.id === tarefa.id)
+                this.tarefas[index] = tarefa
+                //exibir mensagem
+                console.log(this.tarefa)
+                $("#modalTarefa").modal('hide')
+                this.tarefa = this.tarefaVazia()
+            })
+        }
+    },
+    abrirEdicao(tarefa) {
+        this.tarefa = tarefa
+        $("#modalTarefa").modal('show')
+    },
+    abrirTarefa(){
+        this.tarefa = tarefaVazia()
+        $("#modalTarefa").modal('show')
+    },
+    tarefaVazia() {
+        return {
+            "_id": null,
+            "id_projeto": null,
+            "nome": "",
+            "descricao": "",
+            "custo_estimado": "",
+            "custo_efetivo": "",
+            "pagamento_dinheiro": "",
+            "condicao_pgto": [],
+            "condicao_parcelamento": [],
+            "pagamento_permuta": "",
+            "tags": "",
+            "fornecedor": "",
+            "programacao": "",
+            "tipo_servico_compra": "",
+            "situacao": ""
+        }
     }
   }
 };
