@@ -11,7 +11,7 @@
                         <router-link to="/projetos">Projetos</router-link>
                     </li>
                     <li class="active">
-                        <strong>{{projeto[0].nome}}</strong>
+                        <strong>{{projeto.nome}}</strong>
                     </li>
                 </ol>
             </div>
@@ -25,11 +25,10 @@
                             <p class="small">
                                 <i class="fa fa-hand-o-up"></i> Arraste a tarefa entre as listas ou posições</p>
                             <div class="input-group">
-                                <input v-model="nomeNovaTarefa" type="text" placeholder="Título da nova tarefa. " 
-                                    class="input input-sm form-control" />
                                 <span class="input-group-btn">
-                                    <button id="addTarefa" type="button" class="btn btn-sm btn-white" >
-                                        <i class="fa fa-plus" @click="abrirTarefa"></i> Adicionar nova terefa
+                                    <button @click="abrirCadastro" id="addTarefa" type="button"
+                                        class="btn btn-sm btn-white" >
+                                        <i class="fa fa-plus"></i> Adicionar nova terefa
                                     </button>
                                 </span>
                             </div>
@@ -44,7 +43,7 @@
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else class="warning">Data não definida</span>
-                                        <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
+                                        <span>| Custo efetivo: {{tarefa.fechamento}} </span>
                                     </div>
                                 </li>
                             </ul>
@@ -66,7 +65,7 @@
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else>Data não definida</span>
-                                        <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
+                                        <span>| Custo efetivo: {{tarefa.fechamento}} </span>
                                     </div>
                                 </li>
                             </ul>
@@ -88,7 +87,7 @@
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else>Data não definida</span>
-                                        <span>| Custo efetivo: {{tarefa.custo_efetivo}} </span>
+                                        <span>| Custo efetivo: {{tarefa.fechamento}} </span>
                                     </div>
                                 </li>
                             </ul>
@@ -111,34 +110,43 @@
                         </h4>
                     </div>
                     <div class="modal-body text-left">
-                        <form id="formTarefa" @submit="salvarTarefa()">
+                        <form id="formTarefa" @submit="salvarTarefa">
                             <div class="form-group">
                                 <label>Nome da tarefa</label>
                                 <input v-model="tarefa.nome" type="text" placeholder="Nome da tarefa" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label>Situação</label>
+                                <select v-model="tarefa.situacao" class="form-control">
+                                    <option value="ABERTA">Aberta</option>
+                                    <option value="EM_ANDAMENTO">Em andamento</option>
+                                    <option value="FINALIZADA">Finalizada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Observações</label>
-                                <input v-model="tarefa.descricao" type="text" placeholder="Descreva qualquer informação relevante" class="form-control">
+                                <input v-model="tarefa.descricao" type="text" 
+                                    placeholder="Descreva qualquer informação relevante" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Custo estimado</label>
-                                <input v-model="tarefa.custo_estimado" type="number" class="form-control">
+                                <input v-model="tarefa.estimativa" type="number" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Custo efetivo</label>
-                                <input v-model="tarefa.custo_efetivo" type="number" class="form-control">
+                                <input v-model="tarefa.fechamento" type="number" class="form-control">
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group">
                                 <label>Pagamento em dinheiro</label>
                                 <input v-model="tarefa.pagamento_dinheiro" type="number" class="form-control">
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group">
                                 <label>Condição de parcelamento</label>
                                 <input v-model="tarefa.condicao_parcelamento" type="text" placeholder="Ex: 30 60 90" class="form-control">
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group">
                                 <label>Condição de pagamento</label>
-                                <input v-model="tarefa.condicao_pgto" type="text" placeholder="Ex: 500 2000 2000" class="form-control">
+                                <input v-model="tarefa.condicao_pagamento" type="text" placeholder="Ex: 500 2000 2000" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Pagamento em permuta</label>
@@ -176,125 +184,120 @@
                 </div>
             </div>
         </div>
-    
     </div>
 </template>
 
 <script>
-import api from '../api'
+import api from "../api"
+
+const templateTarefa = {
+    id: null,
+    nome: '',
+    descricao: '',
+    id_projeto: null,
+    situacao: 'ABERTA',
+    tags: [],
+    valor_remanescente: 0,
+    condicao_parcelamento: [],
+    permuta: null,
+    fechamento: 0,
+    fornecedor: '',
+    programacao: null,
+    tipo_servico_compra: '?',
+    pagamento_dinheiro: 0,
+    condicao_pagamento: [],
+    estimativa: 0
+}
 
 export default {
-  mounted() {
-    $(".chosen-select").chosen({ width: "100%" });
-
-    const id_projeto = this.$route.params.id
-
-    this.carregarProjeto(id_projeto)
-    this.listarTarefas(id_projeto)    
-
-
-    $("#todo, #inprogress, #completed")
-      .sortable({
-        connectWith: ".connectList",
-        update: function(event, ui) {
-          var todo = $("#todo").sortable("toArray");
-          var inprogress = $("#inprogress").sortable("toArray");
-          var completed = $("#completed").sortable("toArray");
-          $(".output").html(
-            "ToDo: " +
-              window.JSON.stringify(todo) +
-              "<br/>" +
-              "In Progress: " +
-              window.JSON.stringify(inprogress) +
-              "<br/>" +
-              "Completed: " +
-              window.JSON.stringify(completed)
-          );
-        }
-      })
-      .disableSelection();
-  },
-  data: () => ({
-    projeto: null,
-    tarefas: [],
-    termoPesquisa: "",
-    nomeNovaTarefa: "",
-    tarefa: {}
-  }),
-  computed: {
-    tarefasAbertas() {
-      return this.tarefas.filter(p => p.situacao === "ABERTA")
-    },
-    tarefasEmAndamento() {
-      return this.tarefas.filter(p => p.situacao === 'EM_ANDAMENTO')
-    },
-    tarefasFinalizadas() {
-      return this.tarefas.filter(p => p.situacao === 'FINALIZADA')
-    }
-  },
-  methods: {
-    carregarProjeto(id_projeto) {
-        api.carregarProjeto(id_projeto).then(projeto => {
-            this.projeto = projeto
-        })
-    },
-    listarTarefas(id_projeto) {
-        api.listarTarefas(id_projeto).then(tarefas => {
-            this.tarefas = tarefas || [] //retorna array vazio caso problema ocorra
-        })
-    },
-    salvarTarefa(event) {
-        event.preventDefault()
-        if (this.tarefa.id === null) {
-            api.criarTarefa(this.tarefa).then(tarefa => {
-                this.tarefas.post(this.tarefa)
-                //exibir mensagem
-                $("#modalTarefa").modal('hide')
-                this.tarefa = this.tarefaVazia()
-                
+    mounted() {
+        $(".chosen-select").chosen({ width: "100%" })
+        const id_projeto = this.$route.params.id
+        this.carregarProjeto(id_projeto)
+        this.listarTarefas(id_projeto)
+        $("#todo, #inprogress, #completed")
+            .sortable({
+                connectWith: ".connectList",
+                update: function(event, ui) {
+                    var todo = $("#todo").sortable("toArray")
+                    var inprogress = $("#inprogress").sortable("toArray")
+                    var completed = $("#completed").sortable("toArray")
+                    $(".output").html(
+                        "ToDo: " +
+                            window.JSON.stringify(todo) +
+                            "<br/>" +
+                            "In Progress: " +
+                            window.JSON.stringify(inprogress) +
+                            "<br/>" +
+                            "Completed: " +
+                            window.JSON.stringify(completed)
+                    )
+                }
             })
-        } else {
-            api.atualizarTarefa(this.tarefa).then(tarefa => {
-                const index = this.tarefa.findIndex(p => p.id === tarefa.id)
-                this.tarefas[index] = tarefa
-                //exibir mensagem
-                console.log(this.tarefa)
-                $("#modalTarefa").modal('hide')
-                this.tarefa = this.tarefaVazia()
-            })
+            .disableSelection();
+    },
+    data: () => ({
+        projeto: {},
+        tarefas: [],
+        termoPesquisa: "",
+        nomeNovaTarefa: "",
+        tarefa: { ...templateTarefa }
+    }),
+    computed: {
+        tarefasAbertas() {
+            return this.tarefas.filter(p => p.situacao === null || p.situacao === 'ABERTA')
+        },
+        tarefasEmAndamento() {
+            return this.tarefas.filter(p => p.situacao === "EM_ANDAMENTO")
+        },
+        tarefasFinalizadas() {
+            return this.tarefas.filter(p => p.situacao === "FINALIZADA")
         }
     },
-    abrirEdicao(tarefa) {
-        this.tarefa = tarefa
-        $("#modalTarefa").modal('show')
-    },
-    abrirTarefa(){
-        this.tarefa = tarefaVazia()
-        $("#modalTarefa").modal('show')
-    },
-    tarefaVazia() {
-        return {
-            "_id": null,
-            "id_projeto": null,
-            "nome": "",
-            "descricao": "",
-            "custo_estimado": "",
-            "custo_efetivo": "",
-            "pagamento_dinheiro": "",
-            "condicao_pgto": [],
-            "condicao_parcelamento": [],
-            "pagamento_permuta": "",
-            "tags": "",
-            "fornecedor": "",
-            "programacao": "",
-            "tipo_servico_compra": "",
-            "situacao": ""
+    methods: {
+        carregarProjeto(id_projeto) {
+            api.carregarProjeto(id_projeto).then(projeto => {
+                this.projeto = projeto
+            });
+        },
+        listarTarefas(id_projeto) {
+            api.listarTarefas(id_projeto).then(tarefas => {
+                this.tarefas = tarefas || []
+            });
+        },
+        salvarTarefa(event) {
+            event.preventDefault()
+            if (this.tarefa.id === null) {
+                api.criarTarefa(this.tarefa).then(tarefa => {
+                    this.tarefas.push(this.tarefa)
+                    //exibir mensagem
+                    $("#modalTarefa").modal("hide")
+                    this.tarefa = this.tarefaVazia()
+                });
+            } else {
+                api.atualizarTarefa(this.tarefa).then(tarefa => {
+                    const index = this.tarefas.findIndex(p => p.id === tarefa.id)
+                    this.tarefas[index] = tarefa;
+                    //exibir mensagem
+                    $("#modalTarefa").modal("hide")
+                    this.tarefa = this.tarefaVazia()
+                });
+            }
+        },
+        abrirEdicao(tarefa) {
+            this.tarefa = tarefa
+            $("#modalTarefa").modal("show")
+        },
+        abrirCadastro() {
+            this.tarefa = this.tarefaVazia()
+            $("#modalTarefa").modal("show")
+        },
+        tarefaVazia() {
+            return { ...templateTarefa, id_projeto: this.projeto.id }
         }
     }
-  }
-};
+}
 </script>
 
 <style scoped>
-
 </style>

@@ -47,40 +47,41 @@ const atualizarProjeto = (projeto) => {
 const removerProjeto = (projeto) => {
     return server.delete(`projeto/${projeto.id}`)
 }
+
 //By João
 const carregarProjeto = (id_projeto) => {
     return server.get(`projeto/${id_projeto}`)
         .then(response => {
-            const projeto = response.data
-        return Promise.resolve(projeto)
-    })
+            const projeto = response.data[0]
+            return Promise.resolve(projeto)
+        })
 }
 const listarTarefas = (id_projeto) => {
-    return serverLocal.get(`projeto/${id_projeto}/tarefas`)
+    return server.get(`projeto/${id_projeto}/tarefas`)
         .then(response => {
             const tarefas = response.data
             // processamentos
             return Promise.resolve(tarefas)
         })
 }
-//const criarTarefa = (tarefa) => {
- //   return server.post(`projeto/${tarefa.id_projeto}/tarefas`, tarefa)
-//}
 const criarTarefa = (tarefa) => {
-    return serverLocal.post(tarefas)
+   return server.post(`projeto/${tarefa.id_projeto}/tarefas`, tarefa)
 }
-/*const atualizarTarefa = (tarefa) => {
-    return server.put(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`, tarefa)
-}*/
+// const criarTarefa = (tarefa) => {
+//     return serverLocal.post(tarefas)
+// }
 const atualizarTarefa = (tarefa) => {
-    return serverLocal.patch(`tarefas/${tarefa.id}`)
+    return server.put(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`, tarefa)
 }
-/*const removerTarefa = (tarefa) => {
-    return server.delete(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`)
-}*/
+// const atualizarTarefa = (tarefa) => {
+//     return serverLocal.patch(`tarefas/${tarefa.id}`)
+// }
 const removerTarefa = (tarefa) => {
-    return serverLocal.delete(`tarefas/${tarefa.id}`)
+    return server.delete(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`)
 }
+// const removerTarefa = (tarefa) => {
+//     return serverLocal.delete(`tarefas/${tarefa.id}`)
+// }
 
 export default { 
     listarProjetos, criarProjeto, atualizarProjeto, carregarProjeto, removerProjeto,

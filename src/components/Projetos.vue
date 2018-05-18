@@ -98,21 +98,21 @@
                                         <td class="project-completion">
                                             <small>Executado: {{ projeto._porcentagem_conclusao }}%</small>
                                             <div class="progress progress-mini">
-                                                <div :style="{ width: `${projeto._porcentagem_conclusao}%` }" 
+                                                <div :style="{ width: `${projeto._porcentagem_conclusao }%` }" 
                                                     class="progress-bar">
                                                 </div>
                                             </div>
                                             <br />
                                             <small class="tag label label-warning">
-                                                Estimativa: R${{ projeto._estimativa_total }}
+                                                Estimativa: R${{ projeto._estimativa_total || ' ?'}}
                                             </small>
                                             <br /><br />
                                             <small class="tag label label-info">
-                                                Fechamento: R${{ projeto._fechamento_total }}
+                                                Fechamento: R${{ projeto._fechamento_total || ' ?'}}
                                             </small>
                                             <br /><br />
                                             <small class="tag label label-info">
-                                                Total: R${{ projeto._custo_atual }}
+                                                Total: R${{ projeto._custo_atual || ' ?'}}
                                             </small>
                                         </td>
                                         <td class="project-actions">
@@ -143,6 +143,22 @@
 <script>
 import api from '../api'
 
+const templateProjeto = {
+    id: null,
+    nome: "",
+    descricao: "",
+    localizacao: "",
+    vista: "",
+    perfil_cliente: "",
+    padrao_predio: "",
+    garagens: 0,
+    valor_compra: 0,
+    padrao_apto: "",
+    observacao: "",
+    posicao_sol: "",
+    valor_venda: 0
+}
+
 export default {
     components: {},
     mounted() {
@@ -155,7 +171,7 @@ export default {
         projetos: [],
         termoPesquisa: '',
         loading: true,
-        projeto: {}
+        projeto: { ...templateProjeto }
     }),
     computed: {
         projetosFiltrados() {
@@ -167,12 +183,12 @@ export default {
     methods: {
         listarProjetos() {
             api.listarProjetos().then(projetos => {
-                this.projetos = projetos || [] //retorna array vazio caso problema ocorra
+                this.projetos = projetos || []
                 this.loading = false
             })
         },
         abrirCadastro() {
-            //this.projeto = this.projetoVazio()
+            this.projeto = this.projetoVazio()
             $("#criaProjeto").modal('show')
         },
         abrirEdicao(projeto) {
@@ -183,11 +199,10 @@ export default {
             event.preventDefault()
             if (this.projeto.id === null) {
                 api.criarProjeto(this.projeto).then(projeto => {
-                    this.projetos.push(this.projeto) //é push mesmo não post????
+                    this.projetos.push(this.projeto)
                     //exibir mensagem
                     $("#criaProjeto").modal('hide')
                     this.projeto = this.projetoVazio()
-                    
                 })
             } else {
                 const projetoFormatado = {}
@@ -215,21 +230,7 @@ export default {
             }
         },
         projetoVazio() {
-            return {
-                id: null,
-                nome: "",
-                descricao: "",
-                localizacao: "",
-                vista: "",
-                perfil_cliente: "",
-                padrao_predio: "",
-                garagens: 0,
-                valor_compra: 0,
-                padrao_apto: "",
-                observacao: "",
-                posicao_sol: "",
-                valor_venda: 0
-            }
+            return { ...templateProjeto }
         }
     }
 }
