@@ -26,7 +26,7 @@
                                 <span class="input-group-btn">
                                     <button @click="abrirCadastro" id="addTarefa" type="button"
                                         class="btn btn-sm btn-white" >
-                                        <i class="fa fa-plus"></i> Adicionar nova terefa
+                                        <i class="fa fa-plus"></i> Adicionar nova tarefa
                                     </button>
                                 </span>
                             </div>
