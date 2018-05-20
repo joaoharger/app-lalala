@@ -199,7 +199,7 @@ export default {
             event.preventDefault()
             if (this.projeto.id === null) {
                 api.criarProjeto(this.projeto).then(projeto => {
-                    this.projetos.push(this.projeto)
+                    this.projetos.push(projeto)
                     //exibir mensagem
                     $("#criaProjeto").modal('hide')
                     this.projeto = this.projetoVazio()

@@ -37,11 +37,11 @@ const listarProjetos = () => {
 }
 
 const criarProjeto = (projeto) => {
-    return server.post('projeto', projeto)
+    return server.post('projeto', projeto).then(p => Promise.resolve(p.data))
 }
 
 const atualizarProjeto = (projeto) => {
-    return server.put(`projeto/${projeto.id}`, projeto)
+    return server.put(`projeto/${projeto.id}`, projeto).then(p => Promise.resolve(p.data))
 }
 
 const removerProjeto = (projeto) => {
@@ -78,6 +78,7 @@ const criarTarefa = (tarefa) => {
        ...tarefa,
        tags: tarefa.tags.reduce(arrayReducer, '')
     })
+    .then(t => Promise.resolve(t.data))
 }
 
 const atualizarTarefa = (tarefa) => {
@@ -85,6 +86,7 @@ const atualizarTarefa = (tarefa) => {
         ...tarefa,
         tags: tarefa.tags.reduce(arrayReducer, '')
      })
+     .then(t => Promise.resolve(t.data))
 }
 
 const removerTarefa = (tarefa) => {
