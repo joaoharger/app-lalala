@@ -48,7 +48,6 @@ const removerProjeto = (projeto) => {
     return server.delete(`projeto/${projeto.id}`)
 }
 
-//By João
 const carregarProjeto = (id_projeto) => {
     return server.get(`projeto/${id_projeto}`)
         .then(response => {
@@ -56,29 +55,50 @@ const carregarProjeto = (id_projeto) => {
             return Promise.resolve(projeto)
         })
 }
+
+const arrayReducer = (acc, item) => {
+    return acc === '' ? item : `${acc},${item}`
+} 
+
 const listarTarefas = (id_projeto) => {
     return server.get(`projeto/${id_projeto}/tarefas`)
         .then(response => {
-            const tarefas = response.data
+            const tarefas = response.data.map(t => ({
+                ...t,
+                condicao_pagamento: t.condicao_pagamento.reduce(arrayReducer, ''),
+                condicao_parcelamento: t.condicao_pagamento.reduce(arrayReducer, '')
+            }))
             // processamentos
             return Promise.resolve(tarefas)
         })
 }
+
 const criarTarefa = (tarefa) => {
-   return server.post(`projeto/${tarefa.id_projeto}/tarefas`, tarefa)
+    return server.post(`projeto/${tarefa.id_projeto}/tarefas`, {
+       ...tarefa,
+       tags: tarefa.tags.reduce(arrayReducer, '')
+    })
 }
-// const criarTarefa = (tarefa) => {
-//     return serverLocal.post(tarefas)
-// }
+
 const atualizarTarefa = (tarefa) => {
-    return server.put(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`, tarefa)
+    return server.put(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`, {
+        ...tarefa,
+        tags: tarefa.tags.reduce(arrayReducer, '')
+     })
 }
-// const atualizarTarefa = (tarefa) => {
-//     return serverLocal.patch(`tarefas/${tarefa.id}`)
-// }
+
 const removerTarefa = (tarefa) => {
     return server.delete(`projeto/${tarefa.id_projeto}/tarefas/${tarefa.id}`)
 }
+
+// const criarTarefa = (tarefa) => {
+//     return serverLocal.post(tarefas)
+// }
+
+// const atualizarTarefa = (tarefa) => {
+//     return serverLocal.patch(`tarefas/${tarefa.id}`)
+// }
+
 // const removerTarefa = (tarefa) => {
 //     return serverLocal.delete(`tarefas/${tarefa.id}`)
 // }
