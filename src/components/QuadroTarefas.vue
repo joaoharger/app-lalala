@@ -22,24 +22,20 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Pendente</h3>
-                            <p class="small">
-                                <i class="fa fa-hand-o-up"></i> Arraste a tarefa entre as listas ou posições</p>
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button @click="abrirCadastro" id="addTarefa" type="button"
                                         class="btn btn-sm btn-white" >
-                                        <i class="fa fa-plus"></i> Adicionar nova terefa
+                                        <i class="fa fa-plus"></i> Adicionar nova tarefa
                                     </button>
                                 </span>
                             </div>
-                            <ul v-for="tarefa in tarefasAbertas" :key="tarefa._id" class="sortable-list connectList agile-list" id="todo">
-                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
+                            <ul v-for="tarefa in tarefasAbertas" :key="tarefa.id" class="sortable-list connectList agile-list" id="todo">
+                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
                                     <span>{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
-                                        <a v-if="tarefa.tags[0] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[0]}}</a>
-                                        <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
-                                        <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
+                                        <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else class="warning">Data não definida</span>
@@ -54,14 +50,12 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Executando</h3>
-                            <ul v-for="tarefa in tarefasEmAndamento" :key="tarefa._id" class="sortable-list connectList agile-list" id="inprogress">
-                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
+                            <ul v-for="tarefa in tarefasEmAndamento" :key="tarefa.id" class="sortable-list connectList agile-list" id="inprogress">
+                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
                                     <span>{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
-                                        <a v-if="tarefa.tags[0] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[0]}}</a>
-                                        <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
-                                        <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
+                                        <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else>Data não definida</span>
@@ -76,14 +70,12 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h3>Finalizada</h3>
-                            <ul v-for="tarefa in tarefasFinalizadas" :key="tarefa._id" class="sortable-list connectList agile-list" id="completed">
-                                <li class="warning-element" :id="tarefa._id" @click="() => abrirEdicao(tarefa)">
+                            <ul v-for="tarefa in tarefasFinalizadas" :key="tarefa.id" class="sortable-list connectList agile-list" id="completed">
+                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
                                     <span>{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
-                                        <a v-if="tarefa.tags[0] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[0]}}</a>
-                                        <a v-if="tarefa.tags[1] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[1]}}</a>
-                                        <a v-if="tarefa.tags[2] != null" class="pull-right btn btn-xs btn-white">{{tarefa.tags[2]}}</a>
+                                        <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
                                         <i class="fa fa-clock-o"></i>
                                         <span v-if="tarefa.programacao != null ">{{tarefa.programacao}}</span>
                                         <span v-else>Data não definida</span>
@@ -105,9 +97,7 @@
                             <span class="sr-only">Close</span>
                         </button>
                         <i class="fa fa-cubes modal-icon"></i>
-                        <h4 class="modal-title">Nova tarefa -
-                            <span>{{this.nomeNovaTarefa}}</span>
-                        </h4>
+                        <h4 class="modal-title">Nova tarefa</h4>
                     </div>
                     <div class="modal-body text-left">
                         <form id="formTarefa" @submit="salvarTarefa">
@@ -154,14 +144,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Tags</label>
-                                <select v-model="tarefa.tags" data-placeholder="Escolha as tags" class="chosen-select form-control" multiple tabindex="4">
+                                <select v-model="tarefa.tags" data-placeholder="Escolha as tags" class="form-control" multiple tabindex="4">
                                     <option value="aguardando-instalacao">Aguardando instalação</option>
-                                    <option value="aguardando-entrega">Aguardando etrega</option>
+                                    <option value="aguardando-entrega">Aguardando entrega</option>
                                     <option value="programado">Programado</option>
                                     <option value="urgente">Urgente</option>
                                     <option value="aguardando-decisao">Aguardando Decisão</option>
                                     <option value="andamento">Em andamento</option>
-                                    <option value="pgto-pendente">Pgto pendente</option>
+                                    <option value="pagamento-pendente">Pagamento pendente</option>
                                     <option value="aguardando-orcamento">Aguardando orçamento</option>
                                     <option value="interrompido">Interrompido</option>
                                     <option value="concluido">Concluído</option>
@@ -196,17 +186,17 @@ const templateTarefa = {
     descricao: '',
     id_projeto: null,
     situacao: 'ABERTA',
-    tags: [],
     valor_remanescente: 0,
-    condicao_parcelamento: [],
+    condicao_pagamento: '',
+    condicao_parcelamento: '',
     permuta: null,
     fechamento: 0,
     fornecedor: '',
     programacao: null,
-    tipo_servico_compra: '?',
+    tipo_servico_compra: null,
     pagamento_dinheiro: 0,
-    condicao_pagamento: [],
-    estimativa: 0
+    estimativa: 0,
+    tags: []
 }
 
 export default {
@@ -222,16 +212,16 @@ export default {
                     var todo = $("#todo").sortable("toArray")
                     var inprogress = $("#inprogress").sortable("toArray")
                     var completed = $("#completed").sortable("toArray")
-                    $(".output").html(
-                        "ToDo: " +
-                            window.JSON.stringify(todo) +
-                            "<br/>" +
-                            "In Progress: " +
-                            window.JSON.stringify(inprogress) +
-                            "<br/>" +
-                            "Completed: " +
-                            window.JSON.stringify(completed)
-                    )
+                    $(".output").html(`
+                        ToDo:
+                            ${window.JSON.stringify(todo)}
+                            <br/>
+                            In Progress:
+                            ${window.JSON.stringify(inprogress)}
+                            <br/>
+                            Completed:
+                            ${window.JSON.stringify(completed)}
+                    `)
                 }
             })
             .disableSelection();
@@ -239,19 +229,18 @@ export default {
     data: () => ({
         projeto: {},
         tarefas: [],
-        termoPesquisa: "",
-        nomeNovaTarefa: "",
-        tarefa: { ...templateTarefa }
+        tarefa: { ...templateTarefa },
+
     }),
     computed: {
         tarefasAbertas() {
             return this.tarefas.filter(p => p.situacao === null || p.situacao === 'ABERTA')
         },
         tarefasEmAndamento() {
-            return this.tarefas.filter(p => p.situacao === "EM_ANDAMENTO")
+            return this.tarefas.filter(p => p.situacao === 'EM_ANDAMENTO')
         },
         tarefasFinalizadas() {
-            return this.tarefas.filter(p => p.situacao === "FINALIZADA")
+            return this.tarefas.filter(p => p.situacao === 'FINALIZADA')
         }
     },
     methods: {
@@ -277,11 +266,11 @@ export default {
             } else {
                 api.atualizarTarefa(this.tarefa).then(tarefa => {
                     const index = this.tarefas.findIndex(p => p.id === tarefa.id)
-                    this.tarefas[index] = tarefa;
+                    this.tarefas[index] = tarefa
                     //exibir mensagem
                     $("#modalTarefa").modal("hide")
                     this.tarefa = this.tarefaVazia()
-                });
+                })
             }
         },
         abrirEdicao(tarefa) {
