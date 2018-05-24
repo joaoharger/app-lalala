@@ -31,8 +31,12 @@
                                 </span>
                             </div>
                             <ul v-for="tarefa in tarefasAbertas" :key="tarefa.id" class="sortable-list connectList agile-list" id="todo">
-                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
-                                    <span>{{tarefa.nome}}</span>
+                                <li class="warning-element" :id="tarefa.id">
+                                    <button type="button" class="close" @click="(ev) => removerTarefa(tarefa)">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <span @click="() => abrirEdicao(tarefa)">{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
                                         <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
@@ -51,8 +55,12 @@
                         <div class="ibox-content">
                             <h3>Executando</h3>
                             <ul v-for="tarefa in tarefasEmAndamento" :key="tarefa.id" class="sortable-list connectList agile-list" id="inprogress">
-                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
-                                    <span>{{tarefa.nome}}</span>
+                                <li class="warning-element" :id="tarefa.id">
+                                    <button type="button" class="close" @click="(ev) => removerTarefa(tarefa)">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <span @click="() => abrirEdicao(tarefa)">{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
                                         <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
@@ -71,8 +79,12 @@
                         <div class="ibox-content">
                             <h3>Finalizada</h3>
                             <ul v-for="tarefa in tarefasFinalizadas" :key="tarefa.id" class="sortable-list connectList agile-list" id="completed">
-                                <li class="warning-element" :id="tarefa.id" @click="() => abrirEdicao(tarefa)">
-                                    <span>{{tarefa.nome}}</span>
+                                <li class="warning-element" :id="tarefa.id">
+                                    <button type="button" class="close"  @click="() => removerTarefa(tarefa)">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <span @click="() => abrirEdicao(tarefa)">{{tarefa.nome}}</span>
                                     <span> - {{tarefa.descricao}}</span>
                                     <div class="agile-detail">
                                         <a v-for="tag in tarefa.tags" :key="tag" class="pull-right btn btn-xs btn-white">{{tag}}</a>
@@ -97,7 +109,7 @@
                             <span class="sr-only">Close</span>
                         </button>
                         <i class="fa fa-cubes modal-icon"></i>
-                        <h4 class="modal-title">Nova tarefa</h4>
+                        <h4 class="modal-title">{{ tarefa.nome ? tarefa.nome : 'Nova tarefa' }}</h4>
                     </div>
                     <div class="modal-body text-left">
                         <form id="formTarefa" @submit="salvarTarefa">
@@ -256,20 +268,28 @@ export default {
         },
         salvarTarefa(event) {
             event.preventDefault()
-            if (this.tarefa.id === null) {
+            if (!this.tarefa.id) {
                 api.criarTarefa(this.tarefa).then(tarefa => {
-                    this.tarefas.push(this.tarefa)
+                    this.tarefas = [ ...this.tarefas, tarefa ]
                     //exibir mensagem
                     $("#modalTarefa").modal("hide")
                     this.tarefa = this.tarefaVazia()
                 });
             } else {
                 api.atualizarTarefa(this.tarefa).then(tarefa => {
-                    const index = this.tarefas.findIndex(p => p.id === tarefa.id)
-                    this.tarefas[index] = tarefa
+                    const index = this.tarefas.findIndex(t => t.id === tarefa.id)
+                    const tarefas = this.tarefas.filter(t => t.id != tarefa.id)
+                    tarefas[index] = tarefa
                     //exibir mensagem
                     $("#modalTarefa").modal("hide")
                     this.tarefa = this.tarefaVazia()
+                })
+            }
+        },
+        removerTarefa(ev, tarefa) {
+            if (confirm('Deseja realmente excluir a tarefa?')) {
+                api.removerTarefa(tarefa).then(() => {
+                    this.tarefas = this.tarefas.filter(t => t.id != tarefa.id)
                 })
             }
         },

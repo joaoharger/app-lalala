@@ -65,8 +65,14 @@ const listarTarefas = (id_projeto) => {
         .then(response => {
             const tarefas = response.data.map(t => ({
                 ...t,
-                condicao_pagamento: t.condicao_pagamento.reduce(arrayReducer, ''),
-                condicao_parcelamento: t.condicao_pagamento.reduce(arrayReducer, '')
+                tags: t.tags ? t.tags : [],
+                programacao: t.programacao ? t.programacao.split(' ')[0] : null,
+                condicao_pagamento: t.condicao_pagamento 
+                    ? t.condicao_pagamento.reduce(arrayReducer, '') 
+                    : '',
+                condicao_parcelamento: t.condicao_parcelamento 
+                    ? t.condicao_parcelamento.reduce(arrayReducer, '') 
+                    : ''
             }))
             // processamentos
             return Promise.resolve(tarefas)
