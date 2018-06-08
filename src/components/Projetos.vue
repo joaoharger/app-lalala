@@ -40,10 +40,6 @@
                                                     <input v-model="projeto.perfil_cliente" type="text" placeholder="Descreva" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Valor da compra</label>
-                                                    <input v-model="projeto.valor_compra" type="number" class="form-control">
-                                                </div>
-                                                <div class="form-group">
                                                     <label>Número de garagens</label>
                                                     <input v-model="projeto.garagens" type="number" class="form-control">
                                                 </div>
@@ -111,12 +107,12 @@
                                                 Fechamento: R${{ projeto._fechamento_total || ' ?'}}
                                             </small>
                                             <br /><br />
-                                            <small class="tag label label-info">
-                                                Total: R${{ projeto._custo_atual || ' ?'}}
+                                            <small class="tag label label-danger">
+                                                Custo Atual: R${{ projeto._custo_atual || ' ?'}}
                                             </small>
                                         </td>
                                         <td class="project-actions">
-                                            <router-link :to="`/projetos/${projeto.id}/quadro-tarefas`" 
+                                            <router-link :to="`/projetos/${projeto._id}/quadro-tarefas`" 
                                                 class="btn btn-white btn-sm">
                                                 <i class="fa fa-folder"></i> Entrar
                                             </router-link>
@@ -144,7 +140,7 @@
 import api from '../api'
 
 const templateProjeto = {
-    id: null,
+    _id: null,
     nome: "",
     descricao: "",
     localizacao: "",
@@ -197,7 +193,7 @@ export default {
         },
         salvarProjeto(event) {
             event.preventDefault()
-            if (this.projeto.id === null) {
+            if (this.projeto._id === null) {
                 api.criarProjeto(this.projeto).then(projeto => {
                     this.projetos.push(projeto)
                     //exibir mensagem
@@ -205,14 +201,8 @@ export default {
                     this.projeto = this.projetoVazio()
                 })
             } else {
-                const projetoFormatado = {}
-                Object.entries(this.projeto).forEach(([key, value]) => {
-                    if (!key.startsWith('_')) {
-                        projetoFormatado[key] = value
-                    }
-                })
-                api.atualizarProjeto(projetoFormatado).then(projeto => {
-                    const index = this.projetos.findIndex(p => p.id === projeto.id)
+                api.atualizarProjeto(this.projeto).then(projeto => {
+                    const index = this.projetos.findIndex(p => p._id === projeto._id)
                     this.projetos[index] = projeto
                     //exibir mensagem
                     $("#criaProjeto").modal('hide')
@@ -224,7 +214,7 @@ export default {
         removerProjeto(projeto) {
             if (confirm('Tem certeza? O projeto e suas tarefas serão excluídos permanentemente')) {
                 api.removerProjeto(projeto).then(_ => {
-                    this.projetos = this.projetos.filter(p => p.id !== projeto.id)
+                    this.projetos = this.projetos.filter(p => p._id !== projeto._id)
                     //exibir mensagem
                 })
             }

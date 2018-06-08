@@ -14,16 +14,11 @@
                             </ul>
                     </div>
                     <div class="logo-element">
-                        Bh+
+                       I.R.D
                     </div>
                 </li>
                 <li class="active">
                     <router-link to="/">
-                        <i class="fa fa-th-large"></i> <span class="nav-label">Visão geral</span>
-                    </router-link >
-                </li>
-                <li>
-                    <router-link to="/projetos">
                         <i class="fa fa-th-large"></i> <span class="nav-label">Projetos</span>
                     </router-link >
                 </li>
@@ -53,7 +48,7 @@
         </div>
         <div class="footer">
             <div>
-                <strong>Copyright</strong> Bithome &copy; 2018
+                <strong>Copyright</strong> I.R.D &copy; 2018
             </div>
         </div>
     </div>

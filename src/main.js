@@ -10,10 +10,12 @@ import '../static/font-awesome/css/font-awesome.min.css'
 Vue.config.productionTip = false
 Vue.use(Vuex)
 
+
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    projetos: []
+    projetos: [],
+    tarefas: []
   },
   mutations: {
 
